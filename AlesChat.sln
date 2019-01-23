@@ -19,6 +19,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mobile", "Mobile", "{EBE42D
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework", "Framework", "{AB25FB94-8D02-409C-83CB-4117A3078925}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlesChat.BlazorClient", "AlesChat.BlazorClient\AlesChat.BlazorClient.csproj", "{7FD829E6-4571-402E-BBF4-5A823B26C299}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|iPhoneSimulator = Debug|iPhoneSimulator
@@ -89,6 +91,18 @@ Global
 		{10DA6956-5DB4-4AB1-ACEC-0DD93DE04AC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{10DA6956-5DB4-4AB1-ACEC-0DD93DE04AC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{10DA6956-5DB4-4AB1-ACEC-0DD93DE04AC5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FD829E6-4571-402E-BBF4-5A823B26C299}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{7FD829E6-4571-402E-BBF4-5A823B26C299}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{7FD829E6-4571-402E-BBF4-5A823B26C299}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{7FD829E6-4571-402E-BBF4-5A823B26C299}.Release|iPhone.Build.0 = Release|Any CPU
+		{7FD829E6-4571-402E-BBF4-5A823B26C299}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{7FD829E6-4571-402E-BBF4-5A823B26C299}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{7FD829E6-4571-402E-BBF4-5A823B26C299}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{7FD829E6-4571-402E-BBF4-5A823B26C299}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{7FD829E6-4571-402E-BBF4-5A823B26C299}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FD829E6-4571-402E-BBF4-5A823B26C299}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FD829E6-4571-402E-BBF4-5A823B26C299}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FD829E6-4571-402E-BBF4-5A823B26C299}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{10DA6956-5DB4-4AB1-ACEC-0DD93DE04AC5} = {BA66A1D1-089C-4380-B890-7CB36799DEF1}
