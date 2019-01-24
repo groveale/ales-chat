@@ -52,17 +52,17 @@ namespace AlesChat.ConsoleApp
             while (keepRunning);
         }
 
-        static void Service_OnReceivedMessage(object sender, Framework.EventHandlers.MessageEventsArgs e)
+        static void Service_OnReceivedMessage(object sender, Framework.EventHandlers.MessageEventArgs e)
         {
             Console.WriteLine(e.Message);
         }
 
-        static void Service_OnTypingMessage(object sender, Framework.EventHandlers.MessageEventsArgs e)
+        static void Service_OnTypingMessage(object sender, Framework.EventHandlers.MessageEventArgs e)
         {
             Console.WriteLine(e.Message);
         }
 
-        static void Service_OnEnteredOrExitMessage(object sender, Framework.EventHandlers.MessageEventsArgs e)
+        static void Service_OnEnteredOrExitMessage(object sender, Framework.EventHandlers.MessageEventArgs e)
         {
             Console.WriteLine(e.Message);
         }

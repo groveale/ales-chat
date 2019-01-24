@@ -1,9 +1,9 @@
 ﻿using System;
 namespace AlesChat.Framework.EventHandlers
 {
-    public class MessageEventsArgs
+    public class MessageEventArgs : IMessageEventArgs
     {
-        public MessageEventsArgs(string message)
+        public MessageEventArgs(string message)
         {
             Message = message;
         }

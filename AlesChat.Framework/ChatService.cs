@@ -8,14 +8,14 @@ namespace AlesChat.Framework
 {
     public class ChatService
     {
-        public event EventHandler<MessageEventsArgs> OnReceivedMessage;
-        public event EventHandler<MessageEventsArgs> OnTypingMessage;
-        public event EventHandler<MessageEventsArgs> OnEnteredOrExitMessage;
-        public event EventHandler<MessageEventsArgs> OnConnectionClosed;
+        public event EventHandler<MessageEventArgs> OnReceivedMessage;
+        public event EventHandler<MessageEventArgs> OnTypingMessage;
+        public event EventHandler<MessageEventArgs> OnEnteredOrExitMessage;
+        public event EventHandler<MessageEventArgs> OnConnectionClosed;
         //public event EventHandler<MessageEventsArgs> OnConnected;
 
         HubConnection hubConnection;
-        Random random;
+        Random random = new Random();
 
         bool IsConnected { get; set; }
         Dictionary<string, string> ActiveChannels { get; } = new Dictionary<string, string>();
@@ -28,7 +28,7 @@ namespace AlesChat.Framework
 
             hubConnection.Closed += async (error) =>
             {
-                OnConnectionClosed?.Invoke(this, new MessageEventsArgs("Connection closed..."));
+                OnConnectionClosed?.Invoke(this, new MessageEventArgs("Connection closed..."));
                 IsConnected = false;
                 await Task.Delay(random.Next(0, 5) * 1000);
                 try
@@ -44,18 +44,18 @@ namespace AlesChat.Framework
             hubConnection.On<string, string>("ReceiveMessage", (user, message) =>
             {
                 var finalMessage = $"{user} says {message}";
-                OnReceivedMessage?.Invoke(this, new MessageEventsArgs(finalMessage));
-                OnTypingMessage?.Invoke(this, new MessageEventsArgs(string.Empty));
+                OnReceivedMessage?.Invoke(this, new MessageEventArgs(finalMessage));
+                OnTypingMessage?.Invoke(this, new MessageEventArgs(string.Empty));
             });
 
             hubConnection.On<string>("EnteredOrLeft", (message) =>
             {
-                OnEnteredOrExitMessage?.Invoke(this, new MessageEventsArgs(message));
+                OnEnteredOrExitMessage?.Invoke(this, new MessageEventArgs(message));
             });
 
             hubConnection.On<string>("TypingMessage", (user) =>
             {
-                OnTypingMessage?.Invoke(this, new MessageEventsArgs($"{user} is typing..."));
+                OnTypingMessage?.Invoke(this, new MessageEventArgs($"{user} is typing..."));
             });
         }
 
