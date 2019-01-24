@@ -11,8 +11,9 @@ using Blazor.Extensions;
 			public event EventHandler<MessageEventArgs> OnReceivedMessage;
 			public event EventHandler<MessageEventArgs> OnEnteredOrExited;
 			public event EventHandler<MessageEventArgs> OnConnectionClosed;
-	
-			HubConnection hubConnection;
+            public event EventHandler<MessageEventArgs> OnTypingMessage;
+
+            HubConnection hubConnection;
 			Random random = new Random();
 	
 			bool IsConnected { get; set; }
@@ -50,6 +51,7 @@ using Blazor.Extensions;
 				{
 					var finalMessage = $"{user} says {message}";
 					OnReceivedMessage?.Invoke(this, new MessageEventArgs(finalMessage));
+                    OnTypingMessage?.Invoke(this, new MessageEventArgs(string.Empty));
 					return Task.CompletedTask;
 				});
 	
@@ -58,6 +60,12 @@ using Blazor.Extensions;
 					OnEnteredOrExited?.Invoke(this, new MessageEventArgs(message));
 					return Task.CompletedTask;
 				});
+
+                hubConnection.On<string>("TypingMessage", (user) =>
+                {
+                    OnTypingMessage?.Invoke(this, new MessageEventArgs($"{user} is typing..."));
+                    return Task.CompletedTask;
+                });
 			}
 	
 			public async Task ConnectAsync()
@@ -79,8 +87,16 @@ using Blazor.Extensions;
 				ActiveChannels.Clear();
 				IsConnected = false;
 			}
-	
-			public async Task LeaveChannelAsync(string group, string userName)
+
+        public async Task UserIsTyping(string userName)
+        {
+            if (!IsConnected)
+                return;
+
+            await hubConnection.InvokeAsync("Typing", userName);
+        }
+
+        public async Task LeaveChannelAsync(string group, string userName)
 			{
 				if (!IsConnected || !ActiveChannels.ContainsKey(group))
 					return;
@@ -113,7 +129,8 @@ using Blazor.Extensions;
 				var Rooms = new List<string>
 							{
 									".NET",
-									"ASP.NET",
+									"Azure",
+                                    "PowerShell",
 									"Xamarin"
 							};
 				return Rooms;

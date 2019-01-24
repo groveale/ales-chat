@@ -31,6 +31,7 @@ else
                 <button type="submit" class="btn btn-standard" onclick="@SendNewMessage">Send</button>
             </form>
         </div>
+        <div><label for="@nameof(TypingMessage)">@TypingMessage</label></div>
         <ul class="chat-list">
             @if (Messages != null)
             {

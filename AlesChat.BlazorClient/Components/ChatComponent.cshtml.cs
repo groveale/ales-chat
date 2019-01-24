@@ -24,8 +24,22 @@ namespace AlesChat.BlazorClient.Components
 		internal string Server;
 		internal string Room;
 		internal List<MessageEventArgs> Messages { get; set; }
-		internal string NewMessage;
-		internal bool IsConnected;
+        internal string TypingMessage { get; set; } = "No Typing";
+        string newMessage;
+        public string NewMessage
+        {
+            get => newMessage;
+            set
+            {
+                if (!string.IsNullOrWhiteSpace(value))
+                {
+                    Service.UserIsTyping(UserName);
+                }
+
+                newMessage = value;
+            }
+        }
+        internal bool IsConnected;
 		internal bool IsConnecting;
 		internal bool IsRoomJoined;
 
@@ -39,9 +53,22 @@ namespace AlesChat.BlazorClient.Components
 		{
 			Messages.Add(e);
 			StateHasChanged();
-		}
+        }
 
-		internal async Task ConnectServer(UIMouseEventArgs args)
+        void Service_OnEnteredOrExited(object sender, MessageEventArgs e)
+        {
+            Messages.Add(e);
+            StateHasChanged();
+        }
+
+        void Service_OnTypingMessage(object sender, MessageEventArgs e)
+        {
+            TypingMessage = e.Message;
+            StateHasChanged();
+        }
+
+
+        internal async Task ConnectServer(UIMouseEventArgs args)
 		{
 			if (string.IsNullOrWhiteSpace(Server) || string.IsNullOrWhiteSpace(UserName))
 				return;
@@ -49,6 +76,14 @@ namespace AlesChat.BlazorClient.Components
 			IsConnecting = true;
 			IsConnected = false;
 			Service.OnReceivedMessage += Service_OnReceivedMessage;
+            Service.OnEnteredOrExited += Service_OnEnteredOrExited;
+            Service.OnTypingMessage += Service_OnTypingMessage;
+
+			//NewMessage.PropertyChanged += async delegate {
+
+   //             await Service.UserIsTyping(UserName);
+			//};
+
 			Service.Init(Server, Server.ToLower() == "localhost" ? false : true);
 			try
 			{
